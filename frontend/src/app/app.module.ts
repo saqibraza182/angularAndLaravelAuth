@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -8,6 +8,15 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { CallHttpService } from './Service/call-http.service';
+import { TokenService } from './Service/token.service';
+import { AuthService } from './Service/auth.service';
+import { AfterLoginService } from './Service/after-login.service';
+import { BeforeLoginService } from './Service/before-login.service';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+
 
 @NgModule({
   declarations: [
@@ -20,9 +29,21 @@ import { ResponseResetComponent } from './components/password/response-reset/res
     ResponseResetComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    SnotifyModule
   ],
-  providers: [],
+  providers: [
+    CallHttpService,
+    TokenService,
+    AuthService,
+    AfterLoginService,
+    BeforeLoginService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
+    SnotifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
